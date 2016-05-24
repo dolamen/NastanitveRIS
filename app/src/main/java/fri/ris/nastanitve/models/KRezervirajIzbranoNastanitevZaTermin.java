@@ -1,86 +1,128 @@
+package fri.ris.nastanitve.models;
 /***********************************************************************
  * Module:  KRezervirajIzbranoNastanitevZaTermin.java
  * Author:  Domen
  * Purpose: Defines the Class KRezervirajIzbranoNastanitevZaTermin
  ***********************************************************************/
 
-package fri.ris.nastanitve.models;
-
-import java.util.*;
 
 public class KRezervirajIzbranoNastanitevZaTermin {
-   public Collection<Termin> termin;
-   public KPlacajRezervacijo kPlacajRezervacijo;
-   public SVSistemNastanitevRezervacijTerminov_SIM sVSistemNastanitevRezervacijTerminovSIM;
-   
-   public String VrniSeznamProstihTerminov() {
-      // TODO: implement
-      return null;
-   }
-   
-   public int VrniPodrobnostiONastanitviZaTermin() {
-      // TODO: implement
-      return 0;
-   }
-   
-   public int ZaključiRezervacijo() {
-      // TODO: implement
-      return 0;
-   }
-   
-   public int IzračunajCeno() {
-      // TODO: implement
-      return 0;
-   }
-   
-   
-   /** @pdGenerated default getter */
-   public Collection<Termin> getTermin() {
-      if (termin == null)
-         termin = new HashSet<Termin>();
-      return termin;
-   }
-   
-   /** @pdGenerated default iterator getter */
-   public Iterator getIteratorTermin() {
-      if (termin == null)
-         termin = new HashSet<Termin>();
-      return termin.iterator();
-   }
-   
-   /** @pdGenerated default setter
-     * @param newTermin */
-   public void setTermin(Collection<Termin> newTermin) {
-      removeAllTermin();
-      for (Iterator iter = newTermin.iterator(); iter.hasNext();)
-         addTermin((Termin)iter.next());
-   }
-   
-   /** @pdGenerated default add
-     * @param newTermin */
-   public void addTermin(Termin newTermin) {
-      if (newTermin == null)
-         return;
-      if (this.termin == null)
-         this.termin = new HashSet<Termin>();
-      if (!this.termin.contains(newTermin))
-         this.termin.add(newTermin);
-   }
-   
-   /** @pdGenerated default remove
-     * @param oldTermin */
-   public void removeTermin(Termin oldTermin) {
-      if (oldTermin == null)
-         return;
-      if (this.termin != null)
-         if (this.termin.contains(oldTermin))
-            this.termin.remove(oldTermin);
-   }
-   
-   /** @pdGenerated default removeAll */
-   public void removeAllTermin() {
-      if (termin != null)
-         termin.clear();
-   }
+    public java.util.Collection<Nastanitev> nastanitev;
+    public KPlacajRezervacijo kPlacajRezervacijo = new KPlacajRezervacijo();
+    public SVSistemNastanitevRezervacijTerminov_SIM sVSistemNastanitevRezervacijTerminov = new SVSistemNastanitevRezervacijTerminov_SIM();
+
+    /**
+     * @param nastanitev
+     */
+    public Termin[] VrniSeznamProstihTerminov(Nastanitev nastanitev) {
+        return sVSistemNastanitevRezervacijTerminov.PridobiTermineZaNastanitev(nastanitev);
+    }
+
+    public int VrniPodrobnostiONastanitviZaTermin() {
+        // TODO: implement
+        return 0;
+    }
+
+    public int ZaključiRezervacijo() {
+        // TODO: implement
+        return 0;
+    }
+
+    public int IzračunajCeno() {
+        // TODO: implement
+        return 0;
+    }
+
+
+    /**
+     * @pdGenerated default getter
+     */
+    public java.util.Collection<Nastanitev> getNastanitev() {
+        if (nastanitev == null)
+            nastanitev = new java.util.HashSet<Nastanitev>();
+        return nastanitev;
+    }
+
+    /**
+     * @pdGenerated default iterator getter
+     */
+    public java.util.Iterator getIteratorNastanitev() {
+        if (nastanitev == null)
+            nastanitev = new java.util.HashSet<Nastanitev>();
+        return nastanitev.iterator();
+    }
+
+    /**
+     * @param newNastanitev
+     * @pdGenerated default setter
+     */
+    public void setNastanitev(java.util.Collection<Nastanitev> newNastanitev) {
+        removeAllNastanitev();
+        for (java.util.Iterator iter = newNastanitev.iterator(); iter.hasNext(); )
+            addNastanitev((Nastanitev) iter.next());
+    }
+
+    /**
+     * @param newNastanitev
+     * @pdGenerated default add
+     */
+    public void addNastanitev(Nastanitev newNastanitev) {
+        if (newNastanitev == null)
+            return;
+        if (this.nastanitev == null)
+            this.nastanitev = new java.util.HashSet<Nastanitev>();
+        if (!this.nastanitev.contains(newNastanitev))
+            this.nastanitev.add(newNastanitev);
+    }
+
+    /**
+     * @param oldNastanitev
+     * @pdGenerated default remove
+     */
+    public void removeNastanitev(Nastanitev oldNastanitev) {
+        if (oldNastanitev == null)
+            return;
+        if (this.nastanitev != null)
+            if (this.nastanitev.contains(oldNastanitev))
+                this.nastanitev.remove(oldNastanitev);
+    }
+
+    /**
+     * @pdGenerated default removeAll
+     */
+    public void removeAllNastanitev() {
+        if (nastanitev != null)
+            nastanitev.clear();
+    }
+
+    /**
+     * @pdGenerated default parent getter
+     */
+    public KPlacajRezervacijo getKPlacajRezervacijo() {
+        return kPlacajRezervacijo;
+    }
+
+    /**
+     * @param newKPlacajRezervacijo
+     * @pdGenerated default parent setter
+     */
+    public void setKPlacajRezervacijo(KPlacajRezervacijo newKPlacajRezervacijo) {
+        this.kPlacajRezervacijo = newKPlacajRezervacijo;
+    }
+
+    /**
+     * @pdGenerated default parent getter
+     */
+    public SVSistemNastanitevRezervacijTerminov_SIM getSVSistemNastanitevRezervacijTerminov() {
+        return sVSistemNastanitevRezervacijTerminov;
+    }
+
+    /**
+     * @param newSVSistemNastanitevRezervacijTerminov
+     * @pdGenerated default parent setter
+     */
+    public void setSVSistemNastanitevRezervacijTerminov(SVSistemNastanitevRezervacijTerminov_SIM newSVSistemNastanitevRezervacijTerminov) {
+        this.sVSistemNastanitevRezervacijTerminov = newSVSistemNastanitevRezervacijTerminov;
+    }
 
 }

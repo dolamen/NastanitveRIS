@@ -6,20 +6,25 @@
 
 package fri.ris.nastanitve.models;
 
+/***********************************************************************
+ * Module:  Nastanitev.java
+ * Author:  Domen
+ * Purpose: Defines the Class Nastanitev
+ ***********************************************************************/
+
+import java.util.*;
+
 public class Nastanitev {
-    private int ID;
     private String Kraj;
     private String Naslov;
     private String Drzava;
     private int Kapaciteta;
     private double Cena;
     private String Opis;
-    private Termin[] termini;
 
-    public Termin termin;
+    public java.util.List<Termin> termin;
 
-    public Nastanitev(int ID, String kraj, String naslov, String drzava, int kapaciteta, double cena, String opis) {
-        this.ID = ID;
+    public Nastanitev(String kraj, String naslov, String drzava, int kapaciteta, double cena, String opis) {
         Kraj = kraj;
         Naslov = naslov;
         Drzava = drzava;
@@ -29,54 +34,89 @@ public class Nastanitev {
     }
 
     public Termin[] VrniSeznamProstihTerminov() {
+        return termin.toArray(new Termin[termin.size()]);
+    }
+
+    /** @param termin */
+    public Nastanitev VrniPodrobnostiONastanitviZaTermin(Termin termin) {
+
+
         // TODO: implement
         return null;
     }
 
-    /**
-     * @param idTermina
-     */
-    public Nastanitev VrniPodrobnostiONastanitviZaTermin(int idTermina) {
-        // TODO: implement
-        return null;
-    }
-
-    /**
-     * @param idTermina
-     */
+    /** @param idTermina */
     public boolean OznaciTerminKotZaseden(int idTermina) {
         // TODO: implement
         return false;
     }
 
 
-    /**
-     * @pdGenerated default parent getter
-     */
-    public Termin getTermin() {
+    /** @pdGenerated default getter */
+    public java.util.List<Termin> getTermin() {
+        if (termin == null)
+            termin = new java.util.ArrayList<Termin>();
         return termin;
     }
 
-    /**
-     * @param newTermin
-     * @pdGenerated default parent setter
-     */
-    public void setTermin(Termin newTermin) {
-        if (this.termin == null || !this.termin.equals(newTermin)) {
-            if (this.termin != null) {
-                Termin oldTermin = this.termin;
-                this.termin = null;
-                oldTermin.removeNastanitev(this);
+    /** @pdGenerated default iterator getter */
+    public java.util.Iterator getIteratorTermin() {
+        if (termin == null)
+            termin = new java.util.ArrayList<Termin>();
+        return termin.iterator();
+    }
+
+    /** @pdGenerated default setter
+     * @param newTermin */
+    public void setTermin(java.util.List<Termin> newTermin) {
+        removeAllTermin();
+        for (java.util.Iterator iter = newTermin.iterator(); iter.hasNext();)
+            addTermin((Termin)iter.next());
+    }
+
+    /** @pdGenerated default add
+     * @param newTermin */
+    public void addTermin(Termin newTermin) {
+        if (newTermin == null)
+            return;
+        if (this.termin == null)
+            this.termin = new java.util.ArrayList<Termin>();
+        if (!this.termin.contains(newTermin))
+        {
+            this.termin.add(newTermin);
+            newTermin.setNastanitev(this);
+        }
+    }
+
+    /** @pdGenerated default remove
+     * @param oldTermin */
+    public void removeTermin(Termin oldTermin) {
+        if (oldTermin == null)
+            return;
+        if (this.termin != null)
+            if (this.termin.contains(oldTermin))
+            {
+                this.termin.remove(oldTermin);
+                oldTermin.setNastanitev((Nastanitev)null);
             }
-            if (newTermin != null) {
-                this.termin = newTermin;
-                this.termin.addNastanitev(this);
+    }
+
+    /** @pdGenerated default removeAll */
+    public void removeAllTermin() {
+        if (termin != null)
+        {
+            Termin oldTermin;
+            for (java.util.Iterator iter = getIteratorTermin(); iter.hasNext();)
+            {
+                oldTermin = (Termin)iter.next();
+                iter.remove();
+                oldTermin.setNastanitev((Nastanitev)null);
             }
         }
     }
 
-    public int getID() {
-        return ID;
+    public double getCena() {
+        return Cena;
     }
 
     public String getKraj() {
@@ -95,17 +135,7 @@ public class Nastanitev {
         return Kapaciteta;
     }
 
-    public double getCena() {
-        return Cena;
-    }
-
     public String getOpis() {
         return Opis;
     }
-
-    public Termin[] getTermini() {
-        return termini;
-    }
-
-
 }
