@@ -4,7 +4,7 @@
  * Purpose: Defines the Class KPlacajRezervacijo
  ***********************************************************************/
 
-package fri.ris.nastanitve;
+package fri.ris.nastanitve.models;
 
 import java.util.*;
 

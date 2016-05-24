@@ -4,7 +4,7 @@
  * Purpose: Defines the Class Termin
  ***********************************************************************/
 
-package fri.ris.nastanitve;
+package fri.ris.nastanitve.models;
 
 import java.util.*;
 

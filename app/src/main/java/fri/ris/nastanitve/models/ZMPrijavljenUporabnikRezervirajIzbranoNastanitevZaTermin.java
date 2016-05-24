@@ -4,9 +4,7 @@
  * Purpose: Defines the Class ZMPrijavljenUporabnikRezervirajIzbranoNastanitevZaTermin
  ***********************************************************************/
 
-package fri.ris.nastanitve;
-
-import java.util.*;
+package fri.ris.nastanitve.models;
 
 public class ZMPrijavljenUporabnikRezervirajIzbranoNastanitevZaTermin {
    public KRezervirajIzbranoNastanitevZaTermin kRezervirajIzbranoNastanitevZaTermin;

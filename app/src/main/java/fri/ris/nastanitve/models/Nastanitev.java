@@ -4,9 +4,7 @@
  * Purpose: Defines the Class Nastanitev
  ***********************************************************************/
 
-package fri.ris.nastanitve;
-
-import java.util.*;
+package fri.ris.nastanitve.models;
 
 public class Nastanitev {
     private int ID;

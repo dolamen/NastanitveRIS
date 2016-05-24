@@ -3,6 +3,8 @@ package fri.ris.nastanitve;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import fri.ris.nastanitve.models.Nastanitev;
+
 public class MainActivity extends AppCompatActivity {
 
     private Nastanitev izbranaNastanitev;

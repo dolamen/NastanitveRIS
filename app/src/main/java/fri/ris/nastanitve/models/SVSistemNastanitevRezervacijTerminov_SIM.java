@@ -4,9 +4,7 @@
  * Purpose: Defines the Class SVSistemNastanitevRezervacijTerminov_SIM
  ***********************************************************************/
 
-package fri.ris.nastanitve;
-
-import java.util.*;
+package fri.ris.nastanitve.models;
 
 public class SVSistemNastanitevRezervacijTerminov_SIM {
 
