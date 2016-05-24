@@ -140,14 +140,13 @@ public class ZMPrijavljenUporabnikRezervirajIzbranoNastanitevZaTermin extends Ap
                 EditText ime = (EditText) findViewById(R.id.ime_edit);
                 EditText kk = (EditText) findViewById(R.id.kk_edit);
 
-                if(!ime.getText().toString().trim().isEmpty() && !kk.getText().toString().trim().isEmpty()){
+                if (!ime.getText().toString().trim().isEmpty() && !kk.getText().toString().trim().isEmpty()) {
 
-                }else{
+                } else {
                     Toast.makeText(ZMPrijavljenUporabnikRezervirajIzbranoNastanitevZaTermin.this, "Preveri podatke!", Toast.LENGTH_SHORT).show();
                 }
             }
         });
-
     }
 
     public String PrikaziSporociloOUspesniRezervaciji() {

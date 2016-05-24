@@ -22,8 +22,9 @@ public class Termin {
         return sdf.format(ZacetniDatum) + " - " + sdf.format(KoncniDatum);
     }
 
-    public void OznaciTerminKotZaseden() {
+    public boolean OznaciTerminKotZaseden() {
         zaseden = true;
+        return true;
     }
 
     public Termin(Date zacetniDatum, Date koncniDatum, boolean zaseden, Nastanitev nastanitev) {

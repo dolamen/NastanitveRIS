@@ -12,8 +12,6 @@ package fri.ris.nastanitve.models;
  * Purpose: Defines the Class Nastanitev
  ***********************************************************************/
 
-import java.util.*;
-
 public class Nastanitev {
     private String Kraj;
     private String Naslov;
@@ -37,80 +35,88 @@ public class Nastanitev {
         return termin.toArray(new Termin[termin.size()]);
     }
 
-    /** @param termin */
+    /**
+     * @param termin
+     */
     public Nastanitev VrniPodrobnostiONastanitviZaTermin(Termin termin) {
-
-
-        // TODO: implement
-        return null;
+        return this;
     }
 
-    /** @param idTermina */
+    /**
+     * @param idTermina
+     */
     public boolean OznaciTerminKotZaseden(int idTermina) {
-        // TODO: implement
-        return false;
+        return termin.get(idTermina).OznaciTerminKotZaseden();
     }
 
 
-    /** @pdGenerated default getter */
+    /**
+     * @pdGenerated default getter
+     */
     public java.util.List<Termin> getTermin() {
         if (termin == null)
             termin = new java.util.ArrayList<Termin>();
         return termin;
     }
 
-    /** @pdGenerated default iterator getter */
+    /**
+     * @pdGenerated default iterator getter
+     */
     public java.util.Iterator getIteratorTermin() {
         if (termin == null)
             termin = new java.util.ArrayList<Termin>();
         return termin.iterator();
     }
 
-    /** @pdGenerated default setter
-     * @param newTermin */
+    /**
+     * @param newTermin
+     * @pdGenerated default setter
+     */
     public void setTermin(java.util.List<Termin> newTermin) {
         removeAllTermin();
-        for (java.util.Iterator iter = newTermin.iterator(); iter.hasNext();)
-            addTermin((Termin)iter.next());
+        for (java.util.Iterator iter = newTermin.iterator(); iter.hasNext(); )
+            addTermin((Termin) iter.next());
     }
 
-    /** @pdGenerated default add
-     * @param newTermin */
+    /**
+     * @param newTermin
+     * @pdGenerated default add
+     */
     public void addTermin(Termin newTermin) {
         if (newTermin == null)
             return;
         if (this.termin == null)
             this.termin = new java.util.ArrayList<Termin>();
-        if (!this.termin.contains(newTermin))
-        {
+        if (!this.termin.contains(newTermin)) {
             this.termin.add(newTermin);
             newTermin.setNastanitev(this);
         }
     }
 
-    /** @pdGenerated default remove
-     * @param oldTermin */
+    /**
+     * @param oldTermin
+     * @pdGenerated default remove
+     */
     public void removeTermin(Termin oldTermin) {
         if (oldTermin == null)
             return;
         if (this.termin != null)
-            if (this.termin.contains(oldTermin))
-            {
+            if (this.termin.contains(oldTermin)) {
                 this.termin.remove(oldTermin);
-                oldTermin.setNastanitev((Nastanitev)null);
+                oldTermin.setNastanitev((Nastanitev) null);
             }
     }
 
-    /** @pdGenerated default removeAll */
+    /**
+     * @pdGenerated default removeAll
+     */
     public void removeAllTermin() {
-        if (termin != null)
-        {
+        if (termin != null) {
             Termin oldTermin;
-            for (java.util.Iterator iter = getIteratorTermin(); iter.hasNext();)
-            {
-                oldTermin = (Termin)iter.next();
+            for (java.util.Iterator iter = getIteratorTermin(); iter.hasNext(); ) {
+                oldTermin = (Termin) iter.next();
                 iter.remove();
-                oldTermin.setNastanitev((Nastanitev)null);
+                oldTermin.setNastanitev((Nastanitev) null);
             }
         }
     }
