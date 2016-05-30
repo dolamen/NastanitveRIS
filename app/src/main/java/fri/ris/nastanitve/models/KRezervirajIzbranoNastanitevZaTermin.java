@@ -1,4 +1,7 @@
 package fri.ris.nastanitve.models;
+
+import java.util.concurrent.TimeUnit;
+
 /***********************************************************************
  * Module:  KRezervirajIzbranoNastanitevZaTermin.java
  * Author:  Domen
@@ -28,9 +31,8 @@ public class KRezervirajIzbranoNastanitevZaTermin {
         return 0;
     }
 
-    public int IzračunajCeno() {
-        // TODO: implement
-        return 0;
+    public double IzračunajCeno(Nastanitev nastanitev, Termin termin) {
+        return nastanitev.getCena() * TimeUnit.MILLISECONDS.toDays(termin.getKoncniDatum().getTime() - termin.getZacetniDatum().getTime());
     }
 
 

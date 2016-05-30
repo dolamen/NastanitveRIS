@@ -35,7 +35,6 @@ public class ZMPrijavljenUporabnikRezervirajIzbranoNastanitevZaTermin extends Ap
     private ListView listView;
     private ViewFlipper viewFlipper;
 
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,7 +46,8 @@ public class ZMPrijavljenUporabnikRezervirajIzbranoNastanitevZaTermin extends Ap
 
         kRezervirajIzbranoNastanitevZaTermin = new KRezervirajIzbranoNastanitevZaTermin();
 
-        Nastanitev izbranaNastanitev = new Nastanitev("Ljubljana", "Sončna cesta 10", "Slovenija", 1, 29.50, "Zelo prostorno stanovanje s kavčem in TV + Wi-Fi.");
+        Nastanitev izbranaNastanitev = new Nastanitev("Ljubljana", "Sončna cesta 10", "Slovenija", 1, 29.50, "Zelo prostorno stanovanje s kavčem in TV + Wi-Fi. Živali dovoljene!");
+
         Termin[] termins = PricniRezervacijo(izbranaNastanitev);
         izbranaNastanitev.setTermin(Arrays.asList(termins));
         IzberiTermin(izbranaNastanitev);
@@ -137,14 +137,15 @@ public class ZMPrijavljenUporabnikRezervirajIzbranoNastanitevZaTermin extends Ap
         placaj.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditText ime = (EditText) findViewById(R.id.ime_edit);
-                EditText kk = (EditText) findViewById(R.id.kk_edit);
-
-                if (!ime.getText().toString().trim().isEmpty() && !kk.getText().toString().trim().isEmpty()) {
-
-                } else {
-                    Toast.makeText(ZMPrijavljenUporabnikRezervirajIzbranoNastanitevZaTermin.this, "Preveri podatke!", Toast.LENGTH_SHORT).show();
-                }
+//                EditText ime = (EditText) findViewById(R.id.ime_edit);
+//                EditText kk = (EditText) findViewById(R.id.kk_edit);
+//
+//                if (!ime.getText().toString().trim().isEmpty() && !kk.getText().toString().trim().isEmpty()) {
+//
+//                } else {
+//                    Toast.makeText(ZMPrijavljenUporabnikRezervirajIzbranoNastanitevZaTermin.this, "Preveri podatke!", Toast.LENGTH_SHORT).show();
+//                }
+                viewFlipper.setDisplayedChild(3);
             }
         });
     }

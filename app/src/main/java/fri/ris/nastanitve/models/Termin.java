@@ -6,11 +6,12 @@
 
 package fri.ris.nastanitve.models;
 
-import java.security.cert.TrustAnchor;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Date;
+import java.util.Locale;
 
 public class Termin {
+    private int IdTermina;
     private java.util.Date ZacetniDatum;
     private java.util.Date KoncniDatum;
     private boolean zaseden;
@@ -27,31 +28,31 @@ public class Termin {
         return true;
     }
 
-    public Termin(Date zacetniDatum, Date koncniDatum, boolean zaseden, Nastanitev nastanitev) {
+    public Termin(int idTermina, Date zacetniDatum, Date koncniDatum) {
+        IdTermina = idTermina;
         ZacetniDatum = zacetniDatum;
         KoncniDatum = koncniDatum;
-        this.zaseden = zaseden;
-        this.nastanitev = nastanitev;
     }
 
-    /** @pdGenerated default parent getter */
+    /**
+     * @pdGenerated default parent getter
+     */
     public Nastanitev getNastanitev() {
         return nastanitev;
     }
 
-    /** @pdGenerated default parent setter
-     * @param newNastanitev */
+    /**
+     * @param newNastanitev
+     * @pdGenerated default parent setter
+     */
     public void setNastanitev(Nastanitev newNastanitev) {
-        if (this.nastanitev == null || !this.nastanitev.equals(newNastanitev))
-        {
-            if (this.nastanitev != null)
-            {
+        if (this.nastanitev == null || !this.nastanitev.equals(newNastanitev)) {
+            if (this.nastanitev != null) {
                 Nastanitev oldNastanitev = this.nastanitev;
                 this.nastanitev = null;
                 oldNastanitev.removeTermin(this);
             }
-            if (newNastanitev != null)
-            {
+            if (newNastanitev != null) {
                 this.nastanitev = newNastanitev;
                 this.nastanitev.addTermin(this);
             }
@@ -64,5 +65,13 @@ public class Termin {
 
     public Date getKoncniDatum() {
         return KoncniDatum;
+    }
+
+    public int getIdTermina() {
+        return IdTermina;
+    }
+
+    public boolean isZaseden() {
+        return zaseden;
     }
 }

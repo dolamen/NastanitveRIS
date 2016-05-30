@@ -9,17 +9,27 @@ package fri.ris.nastanitve.models;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class SVSistemNastanitevRezervacijTerminov_SIM {
-    public Termin[] PridobiTermineZaNastanitev(Nastanitev nastanitev) {
-        Termin[] termini = new Termin[5];
 
-        termini[0] = new Termin(new Date(1468144800000L), new Date(1468317600000L), false, nastanitev);
-        termini[1] = new Termin(new Date(1468490400000L), new Date(1468767600000L), false, nastanitev);
-        termini[2] = new Termin(new Date(1470409200000L), new Date(1470740400000L), false, nastanitev);
-        termini[3] = new Termin(new Date(1471694400000L), new Date(1472558400000L), false, nastanitev);
-        termini[4] = new Termin(new Date(1472731200000L), new Date(1473076800000L), false, nastanitev);
-        return termini;
+    Termin[] termini = new Termin[]{
+            new Termin(0, new Date(1468144800000L), new Date(1468317600000L)),
+            new Termin(1, new Date(1468490400000L), new Date(1468767600000L)),
+            new Termin(2, new Date(1470409200000L), new Date(1470740400000L)),
+            new Termin(3, new Date(1471694400000L), new Date(1472558400000L)),
+            new Termin(4, new Date(1472731200000L), new Date(1473076800000L)),
+    };
+
+    public Termin[] PridobiTermineZaNastanitev(Nastanitev nastanitev) {
+        List<Termin> termini = new ArrayList<>();
+        for (Termin t : termini) {
+            if (!t.isZaseden()) {
+                t.setNastanitev(nastanitev);
+                termini.add(t);
+            }
+        }
+        return (Termin[]) termini.toArray();
     }
 
     /**
@@ -27,8 +37,7 @@ public class SVSistemNastanitevRezervacijTerminov_SIM {
      * @param jeZaseden
      */
     public boolean PosodobiStatusTermina(int idTermina, boolean jeZaseden) {
-        // TODO: implement
-        return false;
+        return termini[idTermina].OznaciTerminKotZaseden();
     }
 
 }

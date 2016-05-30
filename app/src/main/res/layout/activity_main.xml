@@ -24,8 +24,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Izberite prost termin za izbrano nastanitev (Ljubljana, Sončna cesta 10, Slovenija):"
-                android:textAppearance="@android:style/TextAppearance.Medium"
+                android:text="@string/opis_1"
                 android:textColor="@android:color/black" />
 
             <ListView
@@ -89,7 +88,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="10dp"
                     android:orientation="horizontal">
 
                     <TextView
@@ -145,14 +144,42 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
+                android:text="Ime:" />
+
             <EditText
                 android:id="@+id/ime_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Vnesi ime in priimek"
+                android:hint="Vnesi ime"
                 android:text=""
-                android:textAppearance="@android:style/TextAppearance.Medium"
                 android:textColor="@android:color/black" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
+                android:text="Priimek:" />
+
+            <EditText
+                android:id="@+id/priimek_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Vnesi priimek"
+                android:text=""
+                android:textColor="@android:color/black" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:textStyle="bold"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
+                android:text="Številka kreditne kartice:" />
 
             <EditText
                 android:id="@+id/kk_edit"
@@ -160,15 +187,33 @@
                 android:layout_height="wrap_content"
                 android:hint="Številka kreditne kartice"
                 android:text=""
-                android:textAppearance="@android:style/TextAppearance.Medium"
+                android:inputType="number"
+                android:textColor="@android:color/black" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:textStyle="bold"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
+                android:text="Naslov:" />
+
+            <EditText
+                android:id="@+id/naslov_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Naslov"
+                android:text=""
+                android:inputType="number"
                 android:textColor="@android:color/black" />
 
             <TextView
                 android:id="@+id/cena"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="@android:style/TextAppearance.Medium"
-                android:textColor="@android:color/black"
+                android:textColor="@color/colorPrimary"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_gravity="center_horizontal"
                 android:text="Cena: " />
 
             <LinearLayout
@@ -194,6 +239,26 @@
                     android:text="Plačaj" />
 
             </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
+                android:text="Izvajanje plačila ..." />
 
         </LinearLayout>
 
