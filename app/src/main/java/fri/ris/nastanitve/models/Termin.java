@@ -59,6 +59,7 @@ public class Termin {
         }
     }
 
+
     public Date getZacetniDatum() {
         return ZacetniDatum;
     }
@@ -74,4 +75,5 @@ public class Termin {
     public boolean isZaseden() {
         return zaseden;
     }
+
 }

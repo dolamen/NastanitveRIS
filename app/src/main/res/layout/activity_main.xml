@@ -203,7 +203,6 @@
                 android:layout_height="wrap_content"
                 android:hint="Naslov"
                 android:text=""
-                android:inputType="number"
                 android:textColor="@android:color/black" />
 
             <TextView
@@ -245,6 +244,75 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:contentDescription="@string/banka_logo"
+                    android:src="@drawable/banka" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Plačilni sistem"
+                    android:textAllCaps="true"
+                    android:textColor="@color/Orange"
+                    android:textStyle="bold"
+                    android:textSize="18dp" />
+
+
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/summary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="14sp"
+                android:textStyle="normal"
+                android:layout_gravity="center_horizontal"
+                android:text="Znesek " />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/izvedi_placilo_nazaj_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="1"
+                    android:text="Nazaj" />
+
+                <Button
+                    android:id="@+id/izvedi_placilo__button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="1"
+                    android:text="Izvedi plačilo" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -259,6 +327,57 @@
                 android:textColor="@android:color/black"
                 android:textStyle="bold"
                 android:text="Izvajanje plačila ..." />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:contentDescription="@string/banka_logo"
+                android:src="@drawable/done" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/holo_blue_light"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                android:text="Plačilo je bilo izvedeno in rezervacija je bila uspešno zabeležena." />
+
+            <Button
+                android:id="@+id/home__button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Nazaj na termine" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:contentDescription="@string/banka_logo"
+                android:src="@drawable/error" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/holo_blue_light"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                android:text="Pri plačilu je prišlo do napake. Rezeravacija ni bila končana." />
 
         </LinearLayout>
 

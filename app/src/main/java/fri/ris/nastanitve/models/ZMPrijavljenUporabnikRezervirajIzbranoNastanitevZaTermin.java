@@ -16,9 +16,12 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
+
+import org.w3c.dom.Text;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -26,6 +29,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
+import android.os.Handler;
 
 import fri.ris.nastanitve.R;
 
@@ -34,6 +38,7 @@ public class ZMPrijavljenUporabnikRezervirajIzbranoNastanitevZaTermin extends Ap
 
     private ListView listView;
     private ViewFlipper viewFlipper;
+    private ArrayAdapter<String> adapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -62,10 +67,14 @@ public class ZMPrijavljenUporabnikRezervirajIzbranoNastanitevZaTermin extends Ap
 
         String[] content = new String[termini.length];
         for (int i = 0; i < termini.length; i++) {
-            content[i] = termini[i].VrniPodrobnostiOTerminu();
+            if(!termini[i].isZaseden())
+            {
+                Toast.makeText(ZMPrijavljenUporabnikRezervirajIzbranoNastanitevZaTermin.this, String.valueOf(termini[i].isZaseden()), Toast.LENGTH_SHORT);
+            }
+                content[i] = termini[i].VrniPodrobnostiOTerminu();
         }
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
+        adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1, content);
         listView.setAdapter(adapter);
         return termini;
@@ -119,11 +128,16 @@ public class ZMPrijavljenUporabnikRezervirajIzbranoNastanitevZaTermin extends Ap
         });
     }
 
-    public void VnesiImeInKK(Nastanitev nastanitev, Termin termin) {
+    public void VnesiImeInKK(final Nastanitev nastanitev, final Termin termin) {
         viewFlipper.setDisplayedChild(2);
 
         TextView cenaText = (TextView) findViewById(R.id.cena);
         cenaText.setText("Za plačilo: " + String.valueOf(nastanitev.getCena() * TimeUnit.MILLISECONDS.toDays(termin.getKoncniDatum().getTime() - termin.getZacetniDatum().getTime())) + "€");
+
+        final EditText ime = (EditText) findViewById(R.id.ime_edit);
+        final EditText kk = (EditText) findViewById(R.id.kk_edit);
+        final EditText primek = (EditText) findViewById(R.id.priimek_edit);
+        final EditText naslov = (EditText) findViewById(R.id.naslov_edit);
 
         Button nazaj = (Button) findViewById(R.id.placaj_nazaj_button);
         nazaj.setOnClickListener(new View.OnClickListener() {
@@ -137,26 +151,69 @@ public class ZMPrijavljenUporabnikRezervirajIzbranoNastanitevZaTermin extends Ap
         placaj.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                EditText ime = (EditText) findViewById(R.id.ime_edit);
-//                EditText kk = (EditText) findViewById(R.id.kk_edit);
-//
-//                if (!ime.getText().toString().trim().isEmpty() && !kk.getText().toString().trim().isEmpty()) {
-//
-//                } else {
-//                    Toast.makeText(ZMPrijavljenUporabnikRezervirajIzbranoNastanitevZaTermin.this, "Preveri podatke!", Toast.LENGTH_SHORT).show();
-//                }
-                viewFlipper.setDisplayedChild(3);
+
+
+                if (!ime.getText().toString().trim().isEmpty() && !kk.getText().toString().trim().isEmpty()) {
+                    TextView summary = (TextView) findViewById(R.id.summary);
+                    summary.setText("Znesek "+String.valueOf(nastanitev.getCena() * TimeUnit.MILLISECONDS.toDays(termin.getKoncniDatum().getTime() - termin.getZacetniDatum().getTime()))+"€\n" +
+                            "Kreditna kartica:"+kk.getText().toString()+"\n" +
+                            "Lastnik:"+ime.getText().toString()+" "+primek.getText().toString()+"\n\n" +
+                            "Plačilo bo izvedeno ob kliku na gumb 'Izvedi plačilo'" );
+                    viewFlipper.setDisplayedChild(3);
+                } else {
+                    Toast.makeText(ZMPrijavljenUporabnikRezervirajIzbranoNastanitevZaTermin.this, "Preveri podatke!", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
+
+        Button izvediPlacilo_nazaj = (Button) findViewById(R.id.izvedi_placilo_nazaj_button);
+        izvediPlacilo_nazaj.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewFlipper.setDisplayedChild(2);
+            }
+        });
+
+        Button izvediPlacilo = (Button) findViewById(R.id.izvedi_placilo__button);
+        izvediPlacilo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewFlipper.setDisplayedChild(4);
+
+                Handler h = new Handler();
+                h.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        ProgressBar pb = (ProgressBar) findViewById(R.id.progressBar);
+                        pb.setVisibility(View.GONE);
+                        termin.OznaciTerminKotZaseden();
+                        PrikaziSporociloOUspesniRezervaciji();
+                        pb.setVisibility(View.VISIBLE);
+                    }
+                }, 3000);
+            }
+        });
+
+
     }
 
     public String PrikaziSporociloOUspesniRezervaciji() {
-        // TODO: implement
+        viewFlipper.setDisplayedChild(5);
+        Button home = (Button) findViewById(R.id.home__button);
+        home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Nastanitev izbranaNastanitev = new Nastanitev("Ljubljana", "Sončna cesta 10", "Slovenija", 1, 29.50, "Zelo prostorno stanovanje s kavčem in TV + Wi-Fi. Živali dovoljene!");
+                PricniRezervacijo(izbranaNastanitev);
+                viewFlipper.setDisplayedChild(0);
+            }
+        });
         return null;
     }
 
     public String VrniSporociloONapaki() {
-        // TODO: implement
+        viewFlipper.setDisplayedChild(6);
         return null;
     }
 
