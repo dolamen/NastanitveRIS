@@ -21,11 +21,13 @@ public class SVSistemNastanitevRezervacijTerminov_SIM {
             new Termin(4, new Date(1472731200000L), new Date(1473076800000L)),
     };
 
-    public Termin[] PridobiTermineZaNastanitev(Nastanitev nastanitev) {
+    /**
+     * @param nastanitev
+     */
+    public Termin[] pridobiTermineZaNastanitev(Nastanitev nastanitev) {
         List<Termin> termini = new ArrayList<>();
         for (Termin t : this.termini) {
             if (!t.isZaseden()) {
-                t.setNastanitev(nastanitev);
                 termini.add(t);
             }
         }
@@ -36,8 +38,8 @@ public class SVSistemNastanitevRezervacijTerminov_SIM {
      * @param idTermina
      * @param jeZaseden
      */
-    public boolean PosodobiStatusTermina(int idTermina, boolean jeZaseden) {
-        return termini[idTermina].OznaciTerminKotZaseden();
+    public void posodobiStatusTermina(int idTermina, boolean jeZaseden) {
+        termini[idTermina].oznaciTerminKotZaseden();
     }
 
 }

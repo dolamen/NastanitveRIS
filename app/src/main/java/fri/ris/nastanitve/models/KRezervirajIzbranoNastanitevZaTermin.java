@@ -1,7 +1,5 @@
 package fri.ris.nastanitve.models;
 
-import java.util.concurrent.TimeUnit;
-
 /***********************************************************************
  * Module:  KRezervirajIzbranoNastanitevZaTermin.java
  * Author:  Domen
@@ -10,91 +8,60 @@ import java.util.concurrent.TimeUnit;
 
 
 public class KRezervirajIzbranoNastanitevZaTermin {
-    public java.util.Collection<Nastanitev> nastanitev;
+    public Nastanitev nastanitev;
     public KPlacajRezervacijo kPlacajRezervacijo = new KPlacajRezervacijo();
     public SVSistemNastanitevRezervacijTerminov_SIM sVSistemNastanitevRezervacijTerminov = new SVSistemNastanitevRezervacijTerminov_SIM();
 
-    /**
-     * @param nastanitev
-     */
-    public Termin[] VrniSeznamProstihTerminov(Nastanitev nastanitev) {
-        return sVSistemNastanitevRezervacijTerminov.PridobiTermineZaNastanitev(nastanitev);
+    public Termin[] vrniSeznamProstihTerminov() {
+        return sVSistemNastanitevRezervacijTerminov.pridobiTermineZaNastanitev(nastanitev);
     }
-
-    public int VrniPodrobnostiONastanitviZaTermin(Nastanitev nastanitev, Termin termin) {
-        // TODO: implement
-        return 0;
-    }
-
-    public int ZaključiRezervacijo() {
-        // TODO: implement
-        return 0;
-    }
-
-    public double IzračunajCeno(Nastanitev nastanitev, Termin termin) {
-        return nastanitev.getCena() * TimeUnit.MILLISECONDS.toDays(termin.getKoncniDatum().getTime() - termin.getZacetniDatum().getTime());
-    }
-
 
     /**
-     * @pdGenerated default getter
+     * @param termin
      */
-    public java.util.Collection<Nastanitev> getNastanitev() {
-        if (nastanitev == null)
-            nastanitev = new java.util.HashSet<Nastanitev>();
+    public String[] vrniPodrobnostiONastanitviZaTermin(Termin termin) {
+        return nastanitev.vrniPodrobnostiONastanitviZaTermin(termin.getIdTermina());
+    }
+
+    /**
+     * @param stKreditne
+     * @param ime
+     * @param priimek
+     * @param varnostnaKoda
+     */
+    public boolean izvediPlacilo(java.lang.String stKreditne, java.lang.String ime, java.lang.String priimek, int varnostnaKoda) {
+        return kPlacajRezervacijo.IzvediTransakcijo(stKreditne, ime, priimek, varnostnaKoda);
+    }
+
+    /**
+     * @param idTermina
+     */
+    public void zakljuciRezervacijo(int idTermina) {
+        nastanitev.oznaciIzbranTerminKotZaseden(idTermina);
+        sVSistemNastanitevRezervacijTerminov.posodobiStatusTermina(idTermina, true);
+    }
+
+    /**
+     * @param termin
+     */
+    public double izracunajCeno(Termin termin) {
+        return nastanitev.getCena() * termin.vrniDolzinoVDneh();
+    }
+
+
+    /**
+     * @pdGenerated default parent getter
+     */
+    public Nastanitev getNastanitev() {
         return nastanitev;
     }
 
     /**
-     * @pdGenerated default iterator getter
-     */
-    public java.util.Iterator getIteratorNastanitev() {
-        if (nastanitev == null)
-            nastanitev = new java.util.HashSet<Nastanitev>();
-        return nastanitev.iterator();
-    }
-
-    /**
      * @param newNastanitev
-     * @pdGenerated default setter
+     * @pdGenerated default parent setter
      */
-    public void setNastanitev(java.util.Collection<Nastanitev> newNastanitev) {
-        removeAllNastanitev();
-        for (java.util.Iterator iter = newNastanitev.iterator(); iter.hasNext(); )
-            addNastanitev((Nastanitev) iter.next());
-    }
-
-    /**
-     * @param newNastanitev
-     * @pdGenerated default add
-     */
-    public void addNastanitev(Nastanitev newNastanitev) {
-        if (newNastanitev == null)
-            return;
-        if (this.nastanitev == null)
-            this.nastanitev = new java.util.HashSet<Nastanitev>();
-        if (!this.nastanitev.contains(newNastanitev))
-            this.nastanitev.add(newNastanitev);
-    }
-
-    /**
-     * @param oldNastanitev
-     * @pdGenerated default remove
-     */
-    public void removeNastanitev(Nastanitev oldNastanitev) {
-        if (oldNastanitev == null)
-            return;
-        if (this.nastanitev != null)
-            if (this.nastanitev.contains(oldNastanitev))
-                this.nastanitev.remove(oldNastanitev);
-    }
-
-    /**
-     * @pdGenerated default removeAll
-     */
-    public void removeAllNastanitev() {
-        if (nastanitev != null)
-            nastanitev.clear();
+    public void setNastanitev(Nastanitev newNastanitev) {
+        this.nastanitev = newNastanitev;
     }
 
     /**
@@ -126,5 +93,6 @@ public class KRezervirajIzbranoNastanitevZaTermin {
     public void setSVSistemNastanitevRezervacijTerminov(SVSistemNastanitevRezervacijTerminov_SIM newSVSistemNastanitevRezervacijTerminov) {
         this.sVSistemNastanitevRezervacijTerminov = newSVSistemNastanitevRezervacijTerminov;
     }
+
 
 }

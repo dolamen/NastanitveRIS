@@ -147,9 +147,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="Ime:"
                 android:textColor="@android:color/black"
-                android:textStyle="bold"
-                android:text="Ime:" />
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/ime_edit"
@@ -162,9 +162,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="Priimek:"
                 android:textColor="@android:color/black"
-                android:textStyle="bold"
-                android:text="Priimek:" />
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/priimek_edit"
@@ -176,26 +176,43 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:textStyle="bold"
                 android:layout_height="wrap_content"
+                android:text="Številka kreditne kartice:"
                 android:textColor="@android:color/black"
-                android:text="Številka kreditne kartice:" />
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/kk_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Številka kreditne kartice"
-                android:text=""
                 android:inputType="number"
+                android:text=""
                 android:textColor="@android:color/black" />
 
             <TextView
                 android:layout_width="wrap_content"
-                android:textStyle="bold"
                 android:layout_height="wrap_content"
+                android:text="Varnostna koda:"
                 android:textColor="@android:color/black"
-                android:text="Naslov:" />
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/key_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Varnostna koda"
+                android:inputType="number"
+                android:maxLength="4"
+                android:text=""
+                android:textColor="@android:color/black" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Naslov:"
+                android:textColor="@android:color/black"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/naslov_edit"
@@ -209,11 +226,11 @@
                 android:id="@+id/cena"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="Cena: "
                 android:textColor="@color/colorPrimary"
                 android:textSize="18sp"
-                android:textStyle="bold"
-                android:layout_gravity="center_horizontal"
-                android:text="Cena: " />
+                android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -266,8 +283,8 @@
                     android:text="Plačilni sistem"
                     android:textAllCaps="true"
                     android:textColor="@color/Orange"
-                    android:textStyle="bold"
-                    android:textSize="18dp" />
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
 
 
             </LinearLayout>
@@ -276,12 +293,12 @@
                 android:id="@+id/summary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
                 android:layout_marginTop="15dp"
+                android:text="Znesek "
                 android:textColor="@android:color/black"
                 android:textSize="14sp"
-                android:textStyle="normal"
-                android:layout_gravity="center_horizontal"
-                android:text="Znesek " />
+                android:textStyle="normal" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -323,9 +340,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="Izvajanje plačila ..."
                 android:textColor="@android:color/black"
-                android:textStyle="bold"
-                android:text="Izvajanje plačila ..." />
+                android:textStyle="bold" />
 
         </LinearLayout>
 
@@ -344,10 +361,10 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@android:color/holo_blue_light"
-                android:textStyle="bold"
+                android:text="Plačilo je bilo izvedeno in rezervacija je bila uspešno zabeležena."
                 android:textAlignment="center"
-                android:text="Plačilo je bilo izvedeno in rezervacija je bila uspešno zabeležena." />
+                android:textColor="@android:color/holo_blue_light"
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/home__button"
@@ -373,10 +390,17 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@android:color/holo_blue_light"
-                android:textStyle="bold"
+                android:text="Pri plačilu je prišlo do napake. Rezeravacija ni bila končana."
                 android:textAlignment="center"
-                android:text="Pri plačilu je prišlo do napake. Rezeravacija ni bila končana." />
+                android:textColor="@android:color/holo_blue_light"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/popravi_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Popravi podatke" />
 
         </LinearLayout>
 

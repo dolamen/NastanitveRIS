@@ -6,6 +6,8 @@
 
 package fri.ris.nastanitve.models;
 
+import java.util.Locale;
+
 /***********************************************************************
  * Module:  Nastanitev.java
  * Author:  Domen
@@ -31,22 +33,25 @@ public class Nastanitev {
         Opis = opis;
     }
 
-    public Termin[] VrniSeznamProstihTerminov() {
-        return termin.toArray(new Termin[termin.size()]);
-    }
-
     /**
-     * @param termin
+     * @param idTermina
      */
-    public Nastanitev VrniPodrobnostiONastanitviZaTermin(Termin termin) {
-        return this;
+    public String[] vrniPodrobnostiONastanitviZaTermin(int idTermina) {
+        String[] details = new String[]{
+                String.format(Locale.GERMAN, "%s, %s, %s", Naslov, Kraj, Drzava),
+                String.format(Locale.GERMAN, "Kapaciteta: %d", Kapaciteta),
+                String.format(Locale.GERMAN, "Cena: %.2f€ / noč", Cena),
+                Opis,
+                termin.get(idTermina).vrniPodrobnostiOTerminu()
+        };
+        return details;
     }
 
     /**
      * @param idTermina
      */
-    public boolean OznaciTerminKotZaseden(int idTermina) {
-        return termin.get(idTermina).OznaciTerminKotZaseden();
+    public void oznaciIzbranTerminKotZaseden(int idTermina) {
+        termin.get(idTermina).oznaciTerminKotZaseden();
     }
 
 
@@ -57,6 +62,10 @@ public class Nastanitev {
         if (termin == null)
             termin = new java.util.ArrayList<Termin>();
         return termin;
+    }
+
+    public Termin[] vrniSeznamProstihTerminov() {
+        return termin.toArray(new Termin[termin.size()]);
     }
 
     /**
@@ -89,7 +98,6 @@ public class Nastanitev {
             this.termin = new java.util.ArrayList<Termin>();
         if (!this.termin.contains(newTermin)) {
             this.termin.add(newTermin);
-            newTermin.setNastanitev(this);
         }
     }
 
@@ -103,7 +111,6 @@ public class Nastanitev {
         if (this.termin != null)
             if (this.termin.contains(oldTermin)) {
                 this.termin.remove(oldTermin);
-                oldTermin.setNastanitev((Nastanitev) null);
             }
     }
 
@@ -116,32 +123,11 @@ public class Nastanitev {
             for (java.util.Iterator iter = getIteratorTermin(); iter.hasNext(); ) {
                 oldTermin = (Termin) iter.next();
                 iter.remove();
-                oldTermin.setNastanitev((Nastanitev) null);
             }
         }
     }
 
     public double getCena() {
         return Cena;
-    }
-
-    public String getKraj() {
-        return Kraj;
-    }
-
-    public String getNaslov() {
-        return Naslov;
-    }
-
-    public String getDrzava() {
-        return Drzava;
-    }
-
-    public int getKapaciteta() {
-        return Kapaciteta;
-    }
-
-    public String getOpis() {
-        return Opis;
     }
 }
