@@ -14,7 +14,7 @@ public class Termin {
     private int IdTermina;
     private java.util.Date ZacetniDatum;
     private java.util.Date KoncniDatum;
-    private boolean zaseden;
+    private boolean zaseden = false;
 
     public Nastanitev nastanitev;
 

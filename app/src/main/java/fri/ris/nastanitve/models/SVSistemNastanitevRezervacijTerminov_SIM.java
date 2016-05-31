@@ -23,13 +23,13 @@ public class SVSistemNastanitevRezervacijTerminov_SIM {
 
     public Termin[] PridobiTermineZaNastanitev(Nastanitev nastanitev) {
         List<Termin> termini = new ArrayList<>();
-        for (Termin t : termini) {
+        for (Termin t : this.termini) {
             if (!t.isZaseden()) {
                 t.setNastanitev(nastanitev);
                 termini.add(t);
             }
         }
-        return (Termin[]) termini.toArray();
+        return termini.toArray(new Termin[termini.size()]);
     }
 
     /**
