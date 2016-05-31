@@ -21,7 +21,7 @@ public class KRezervirajIzbranoNastanitevZaTermin {
         return sVSistemNastanitevRezervacijTerminov.PridobiTermineZaNastanitev(nastanitev);
     }
 
-    public int VrniPodrobnostiONastanitviZaTermin() {
+    public int VrniPodrobnostiONastanitviZaTermin(Nastanitev nastanitev, Termin termin) {
         // TODO: implement
         return 0;
     }

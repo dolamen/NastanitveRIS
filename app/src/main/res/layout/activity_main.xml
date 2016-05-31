@@ -272,13 +272,12 @@
 
             </LinearLayout>
 
-
             <TextView
                 android:id="@+id/summary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="@android:color/black"
                 android:textSize="14sp"
                 android:textStyle="normal"
                 android:layout_gravity="center_horizontal"

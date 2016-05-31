@@ -7,7 +7,7 @@
 package fri.ris.nastanitve.models;
 
 import android.os.Bundle;
-import android.os.PersistableBundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -16,20 +16,12 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
 
-import org.w3c.dom.Text;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Locale;
-import java.util.concurrent.TimeUnit;
-import android.os.Handler;
 
 import fri.ris.nastanitve.R;
 
@@ -47,7 +39,6 @@ public class ZMPrijavljenUporabnikRezervirajIzbranoNastanitevZaTermin extends Ap
 
         listView = (ListView) findViewById(R.id.listView);
         viewFlipper = (ViewFlipper) findViewById(R.id.viewFlipper);
-        viewFlipper.setDisplayedChild(0);
 
         kRezervirajIzbranoNastanitevZaTermin = new KRezervirajIzbranoNastanitevZaTermin();
 
@@ -56,27 +47,25 @@ public class ZMPrijavljenUporabnikRezervirajIzbranoNastanitevZaTermin extends Ap
         Termin[] termins = PricniRezervacijo(izbranaNastanitev);
         izbranaNastanitev.setTermin(Arrays.asList(termins));
         IzberiTermin(izbranaNastanitev);
-
     }
 
     /**
      * @param izbranaNastanitev
      */
     public Termin[] PricniRezervacijo(Nastanitev izbranaNastanitev) {
+        viewFlipper.setDisplayedChild(0);
         Termin[] termini = kRezervirajIzbranoNastanitevZaTermin.VrniSeznamProstihTerminov(izbranaNastanitev);
 
+        // fill list view adapter
         String[] content = new String[termini.length];
         for (int i = 0; i < termini.length; i++) {
-            if(!termini[i].isZaseden())
-            {
-                Toast.makeText(ZMPrijavljenUporabnikRezervirajIzbranoNastanitevZaTermin.this, String.valueOf(termini[i].isZaseden()), Toast.LENGTH_SHORT);
-            }
-                content[i] = termini[i].VrniPodrobnostiOTerminu();
+            content[i] = termini[i].VrniPodrobnostiOTerminu();
         }
 
         adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1, content);
         listView.setAdapter(adapter);
+
         return termini;
     }
 
@@ -87,7 +76,7 @@ public class ZMPrijavljenUporabnikRezervirajIzbranoNastanitevZaTermin extends Ap
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                PrikažePodrobnostiONastanitviZaTermin(nastanitev, nastanitev.getTermin().get(position));
+                PrikaziPodrobnostiONastanitviZaTermin(nastanitev, nastanitev.getTermin().get(position));
             }
         });
     }
@@ -96,43 +85,58 @@ public class ZMPrijavljenUporabnikRezervirajIzbranoNastanitevZaTermin extends Ap
      * @param nastanitev
      * @param termin
      */
-    public void PrikažePodrobnostiONastanitviZaTermin(final Nastanitev nastanitev, final Termin termin) {
+    public void PrikaziPodrobnostiONastanitviZaTermin(final Nastanitev nastanitev, final Termin termin) {
         viewFlipper.setDisplayedChild(1);
 
         TextView naslovText = (TextView) findViewById(R.id.podrobnosti_naslov);
-        naslovText.setText(nastanitev.getNaslov() + ", " + nastanitev.getKraj() + ", " + nastanitev.getDrzava());
+        if (naslovText != null) {
+            naslovText.setText(String.format(Locale.GERMAN, "%s, %s, %s", nastanitev.getNaslov(), nastanitev.getKraj(), nastanitev.getDrzava()));
+        }
 
         TextView kapacitetaText = (TextView) findViewById(R.id.podrobnosti_kapaciteta);
-        kapacitetaText.setText("Kapaciteta: " + nastanitev.getKapaciteta());
+        if (kapacitetaText != null) {
+            kapacitetaText.setText(String.format(Locale.GERMAN, "Kapaciteta: %d", nastanitev.getKapaciteta()));
+        }
 
         TextView opisText = (TextView) findViewById(R.id.podrobnosti_opis);
-        opisText.setText(nastanitev.getOpis());
+        if (opisText != null) {
+            opisText.setText(nastanitev.getOpis());
+        }
 
         TextView terminText = (TextView) findViewById(R.id.termin_podrobnosti_text_view);
-        terminText.setText(termin.VrniPodrobnostiOTerminu());
+        if (terminText != null) {
+            terminText.setText(termin.VrniPodrobnostiOTerminu());
+        }
         TextView cenaText = (TextView) findViewById(R.id.podrobnosti_cena);
-        cenaText.setText("Cena: " + nastanitev.getCena() + "€ / noč");
+        if (cenaText != null) {
+            cenaText.setText(String.format(Locale.GERMAN, "Cena: %.2f€ / noč", nastanitev.getCena()));
+        }
         Button rezerviraj = (Button) findViewById(R.id.rezerviraj_button);
         Button nazaj = (Button) findViewById(R.id.nazaj_button);
-        rezerviraj.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                VnesiImeInKK(nastanitev, termin);
-            }
-        });
-        nazaj.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                viewFlipper.setDisplayedChild(0);
-            }
-        });
+        if (rezerviraj != null) {
+            rezerviraj.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    VnesiImeInKK(nastanitev, termin);
+                }
+            });
+        }
+        if (nazaj != null) {
+            nazaj.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    viewFlipper.setDisplayedChild(0);
+                }
+            });
+        }
     }
 
     public void VnesiImeInKK(final Nastanitev nastanitev, final Termin termin) {
         viewFlipper.setDisplayedChild(2);
 
         TextView cenaText = (TextView) findViewById(R.id.cena);
-        cenaText.setText("Za plačilo: " + String.valueOf(nastanitev.getCena() * TimeUnit.MILLISECONDS.toDays(termin.getKoncniDatum().getTime() - termin.getZacetniDatum().getTime())) + "€");
+        if (cenaText != null)
+            cenaText.setText(String.format(Locale.GERMAN, "Za plačilo: %.2f€", kRezervirajIzbranoNastanitevZaTermin.IzračunajCeno(nastanitev, termin)));
 
         final EditText ime = (EditText) findViewById(R.id.ime_edit);
         final EditText kk = (EditText) findViewById(R.id.kk_edit);
@@ -140,60 +144,66 @@ public class ZMPrijavljenUporabnikRezervirajIzbranoNastanitevZaTermin extends Ap
         final EditText naslov = (EditText) findViewById(R.id.naslov_edit);
 
         Button nazaj = (Button) findViewById(R.id.placaj_nazaj_button);
-        nazaj.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                viewFlipper.setDisplayedChild(1);
-            }
-        });
+        if (nazaj != null) {
+            nazaj.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    viewFlipper.setDisplayedChild(1);
+                }
+            });
+        }
 
         Button placaj = (Button) findViewById(R.id.placaj_button);
-        placaj.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-
-                if (!ime.getText().toString().trim().isEmpty() && !kk.getText().toString().trim().isEmpty()) {
-                    TextView summary = (TextView) findViewById(R.id.summary);
-                    summary.setText("Znesek "+String.valueOf(nastanitev.getCena() * TimeUnit.MILLISECONDS.toDays(termin.getKoncniDatum().getTime() - termin.getZacetniDatum().getTime()))+"€\n" +
-                            "Kreditna kartica:"+kk.getText().toString()+"\n" +
-                            "Lastnik:"+ime.getText().toString()+" "+primek.getText().toString()+"\n\n" +
-                            "Plačilo bo izvedeno ob kliku na gumb 'Izvedi plačilo'" );
-                    viewFlipper.setDisplayedChild(3);
-                } else {
-                    Toast.makeText(ZMPrijavljenUporabnikRezervirajIzbranoNastanitevZaTermin.this, "Preveri podatke!", Toast.LENGTH_SHORT).show();
+        if (placaj != null) {
+            placaj.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (!(ime != null && ime.getText().toString().trim().isEmpty()) && !(primek != null && primek.getText().toString().trim().isEmpty()) && !(kk != null && kk.getText().toString().trim().isEmpty()) && !(naslov != null && naslov.getText().toString().trim().isEmpty())) {
+                        TextView summary = (TextView) findViewById(R.id.summary);
+                        if (summary != null) {
+                            summary.setText(String.format(Locale.GERMAN, "Znesek: %.2f€\nKreditna kartica: %s\nLastnik: %s %s\nNaslov plačnika: %s\n\nPlačilo bo izvedeno ob kliku na gumb 'Izvedi plačilo.'",
+                                    kRezervirajIzbranoNastanitevZaTermin.IzračunajCeno(nastanitev, termin),
+                                    kk != null ? kk.getText().toString() : "",
+                                    ime != null ? ime.getText().toString() : "",
+                                    primek != null ? primek.getText().toString() : "",
+                                    naslov != null ? naslov.getText().toString() : ""));
+                        }
+                        viewFlipper.setDisplayedChild(3);
+                    } else {
+                        Toast.makeText(ZMPrijavljenUporabnikRezervirajIzbranoNastanitevZaTermin.this, "Preveri podatke!", Toast.LENGTH_SHORT).show();
+                    }
                 }
-
-            }
-        });
+            });
+        }
 
         Button izvediPlacilo_nazaj = (Button) findViewById(R.id.izvedi_placilo_nazaj_button);
-        izvediPlacilo_nazaj.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                viewFlipper.setDisplayedChild(2);
-            }
-        });
+        if (izvediPlacilo_nazaj != null) {
+            izvediPlacilo_nazaj.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    viewFlipper.setDisplayedChild(2);
+                }
+            });
+        }
 
         Button izvediPlacilo = (Button) findViewById(R.id.izvedi_placilo__button);
-        izvediPlacilo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                viewFlipper.setDisplayedChild(4);
+        if (izvediPlacilo != null) {
+            izvediPlacilo.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    viewFlipper.setDisplayedChild(4);
 
-                Handler h = new Handler();
-                h.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        ProgressBar pb = (ProgressBar) findViewById(R.id.progressBar);
-                        pb.setVisibility(View.GONE);
-                        termin.OznaciTerminKotZaseden();
-                        PrikaziSporociloOUspesniRezervaciji();
-                        pb.setVisibility(View.VISIBLE);
-                    }
-                }, 3000);
-            }
-        });
+                    Handler h = new Handler();
+                    h.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            kRezervirajIzbranoNastanitevZaTermin.sVSistemNastanitevRezervacijTerminov.PosodobiStatusTermina(termin.getIdTermina(), true);
+                            PrikaziSporociloOUspesniRezervaciji();
+                        }
+                    }, 3000);
+                }
+            });
+        }
 
 
     }
@@ -201,14 +211,17 @@ public class ZMPrijavljenUporabnikRezervirajIzbranoNastanitevZaTermin extends Ap
     public String PrikaziSporociloOUspesniRezervaciji() {
         viewFlipper.setDisplayedChild(5);
         Button home = (Button) findViewById(R.id.home__button);
-        home.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Nastanitev izbranaNastanitev = new Nastanitev("Ljubljana", "Sončna cesta 10", "Slovenija", 1, 29.50, "Zelo prostorno stanovanje s kavčem in TV + Wi-Fi. Živali dovoljene!");
-                PricniRezervacijo(izbranaNastanitev);
-                viewFlipper.setDisplayedChild(0);
-            }
-        });
+        if (home != null) {
+            home.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Nastanitev izbranaNastanitev = new Nastanitev("Ljubljana", "Sončna cesta 10", "Slovenija", 1, 29.50, "Zelo prostorno stanovanje s kavčem in TV + Wi-Fi. Živali dovoljene!");
+                    Termin[] termins = PricniRezervacijo(izbranaNastanitev);
+                    izbranaNastanitev.setTermin(Arrays.asList(termins));
+                    IzberiTermin(izbranaNastanitev);
+                }
+            });
+        }
         return null;
     }
 
